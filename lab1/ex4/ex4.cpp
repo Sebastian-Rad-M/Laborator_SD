@@ -4,35 +4,35 @@
 using namespace std;
 
 int part(vector<int>& a, int st, int dr) {
-    int pivotIndex = st + rand() % (dr- st + 1);
-    int pivotValue = a[pivotIndex];
-    swap(a[pivotIndex], a[dr]);
+    int pivot = st + rand() % (dr- st + 1);
+    int pivotVal = a[pivot];
+    swap(a[pivot], a[dr]);
     
-    int storeIndex = st;
+    int nr = st;
     for (int i = st; i < dr; i++) {
-        if (a[i] < pivotValue) {
-            swap(a[i], a[storeIndex]);
-            storeIndex++;
+        if (a[i] < pivot) {
+            swap(a[i], a[nr]);
+            nr++;
         }
     }
-    swap(a[storeIndex], a[dr]);
+    swap(a[nr], a[dr]);
     
-    return storeIndex;
+    return nr;
 }
 
-int quickSelect(vector<int>& a, int st, int dr, int k_index) {
+int quickSelect(vector<int>& a, int st, int dr, int k) {
     if (st == dr) {
         return a[st];
     }
 
-    int pivotIndex = part(a, st, dr);
+    int pivot = part(a, st, dr);
 
-    if (k_index == pivotIndex) {
-        return a[k_index]; 
-    } else if (k_index < pivotIndex) {
-        return quickSelect(a, st, pivotIndex - 1, k_index); 
+    if (k== pivot) {
+        return a[k]; 
+    } else if (k < pivot) {
+        return quickSelect(a, st, pivot - 1, k); 
     } else {
-        return quickSelect(a, pivotIndex + 1, dr, k_index); 
+        return quickSelect(a, pivot + 1, dr, k); 
     }
 }
 
